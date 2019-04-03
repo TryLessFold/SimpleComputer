@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "processor.h"
 
-
 int mass[size];
 int flag;
 

@@ -6,4 +6,5 @@
 	int mt_getscreensize (int *size_x, int *size_y);
 	int mt_setfgcolor (enum colors c);
 	int mt_setbgcolor (enum colors c);
+	int display_term();
  #endif

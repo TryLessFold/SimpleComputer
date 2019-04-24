@@ -12,7 +12,7 @@ int main()
 mt_setfgcolor (black);
 mt_setbgcolor (white);
 mt_clrscr();
+ bc_printA("b");
 //display_term();
-printf("1");
 return 0;
 }

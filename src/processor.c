@@ -2,36 +2,34 @@
 #include <stdlib.h>
 #include "processor.h"
 
-int mass[size];
-int flag;
-
 int sc_memoryInit()
 {
 	for(int i = 0; i<size; i++)
 	{
-		mass[i] = 0;		
+		RAM[i] = 0;		
 	}
+	RAM[2] = 2;
 	return 0;
 }
 
 int sc_memorySet(int address, int value)
 {
 	if ((address<0)||(address>=size)) return 1;
-	mass[address] = value;
+	RAM[address] = value;
 	return 0; 
 }
 
 int sc_memoryGet(int address, int* value)
 {
 	if ((address<0)||(address>=size)) return 1;
-	*value = mass[address];
+	*value = RAM[address];
 	return 0;
 }
 
 int sc_memorySave(char* filename)
 {
 	FILE* f = fopen(filename, "w");
-	fwrite(mass, sizeof(int), 100, f);
+	fwrite(RAM, sizeof(int), 100, f);
 	fclose(f);
 	return 0;
 }
@@ -40,7 +38,7 @@ int sc_memoryLoad(char* filename)
 {
 	FILE* f = fopen(filename, "r");
 	if (f==NULL) return 1;
-	fread(mass, sizeof(int), 100, f);
+	fread(RAM, sizeof(int), 100, f);
 	fclose(f);
 	return 0;
 }

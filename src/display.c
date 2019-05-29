@@ -14,18 +14,15 @@ int mt_gotoXY (int x, int y)
 	printf("%c[%d;%df",0x1B,y,x);
 	return 0;
 }
-int mt_getscreensize (int *size_x, int *size_y)
+int mt_getscreensize (int *cols, int *rows)
 {
  	struct winsize w;
    	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	*size_y = w.ws_row;
-	*size_x = w.ws_col;
+	*cols = w.ws_row;
+	*rows = w.ws_col;
 	return 0;
 }
-int mt_setscreeensize (int size_x, int size_y)
-{
-	return 0;
-}
+
 int mt_setfgcolor (enum colors c)
 {
 	printf("\E[3%dm", c);
@@ -147,18 +144,4 @@ int bc_bigcharread(int fd, unsigned int** big, int need_count, int* count)
         *count = *count + 1;
     }
     return 0;
-}
-
-
-
-int display_term()
-{
-	int *size_x, *size_y;
-	mt_getscreensize (size_x, size_y);
-	mt_clrscr();
-	//for(int i=0; i<size_x; i++)
-	{
-		printf("1");
-	}
-	return 0;
 }

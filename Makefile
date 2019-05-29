@@ -1,4 +1,4 @@
-GCC = gcc -Wall -Werror
+GCC = gcc -Wall 
 OBJ = build/processor.o build/display.o
 HEAD = src/processor.h src/display.h
 

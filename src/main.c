@@ -1,9 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-
 #include "display.h"
 #include "processor.h"
 
@@ -128,6 +123,7 @@ void display() {
                         printf(" ");
                 }
 	draw_boxes();
+	draw_keys();
         for (int i = 0; i < 100; i++) {
 		if (i%10==0){
 			mt_gotoXY(2, (i/10)+2);
@@ -135,13 +131,6 @@ void display() {
 		sc_memoryGet(i, &value_ram);
 		printf("+%04X ",value_ram);
         }
-	draw_keys();
-        bc_printbigchar(bigint[0], 2, 14, white, black);
-        bc_printbigchar(bigint[0], 11, 14, white, black);
-        bc_printbigchar(bigint[0], 20, 14, white, black);
-        bc_printbigchar(bigint[0], 29, 14, white, black);
-        bc_printbigchar(bigint[0]
-, 38, 14, white, black);
         mt_gotoXY(1, 23);
 }
 int main() {

@@ -77,31 +77,32 @@ static unsigned int bigint[17][2]={
         4279769112
 }
 };
-void display() {
-        mt_setfgcolor(white);
-        mt_setbgcolor(black);
-        int x, y;
-	int value_ram;
-        mt_getscreensize( & x, & y); 
-        for (int i = 0; i <= x; i++)           //Fill screen
-                for (int j = 0; j <= y; j++) {
-                        mt_gotoXY(i, j);
-                        printf(" ");
-                }
-        bc_box(1, 1, 60, 11);
-        for (int i = 0; i < 100; i++) {
-		if (i%10==0){
-			mt_gotoXY(2, (i/10)+2);
-		}
-		sc_memoryGet(i, &value_ram);
-		printf("%04d",value_ram);
-        }
-        bc_box(62, 1, 21, 2);
-        bc_box(62, 4, 21, 2);
-        bc_box(62, 7, 21, 2);
-        bc_box(62, 10, 21, 2);
+void draw_keys()
+{   
+	mt_gotoXY(49, 14);
+	printf("l - load");
+	mt_gotoXY(49, 15);
+	printf("s - save");
+	mt_gotoXY(49, 16);
+	printf("r - run");
+	mt_gotoXY(49, 17);
+	printf("t - step");
+	mt_gotoXY(49, 18);
+	printf("i - reset");
+	mt_gotoXY(49, 19);
+	printf("f5 - accumulator");
+	mt_gotoXY(49, 20);
+	printf("f6 - instructionCounter");
+}
+void draw_boxes()
+{
+	bc_box(1, 1, 61, 11);
+	bc_box(63, 1, 21, 2);
+        bc_box(63, 4, 21, 2);
+        bc_box(63, 7, 21, 2);
+        bc_box(63, 10, 21, 2);
         bc_box(1, 13, 45, 9);
-        bc_box(47, 13, 36, 9);
+        bc_box(47, 13, 37, 9);
         mt_gotoXY(4, 1);
         printf("Memory");
         mt_gotoXY(65, 1);
@@ -113,7 +114,28 @@ void display() {
         mt_gotoXY(65, 10);
         printf("Flags");
         mt_gotoXY(50, 13);
-        printf("Keys");
+        printf("Keys");	
+}
+void display() {
+        mt_setfgcolor(white);
+        mt_setbgcolor(black);
+        int x, y;
+	int value_ram;
+        mt_getscreensize( & x, & y); 
+        for (int i = 0; i <= x; i++)           //Fill screen
+                for (int j = 0; j <= y; j++) {
+                        mt_gotoXY(i, j);
+                        printf(" ");
+                }
+	draw_boxes();
+        for (int i = 0; i < 100; i++) {
+		if (i%10==0){
+			mt_gotoXY(2, (i/10)+2);
+		}
+		sc_memoryGet(i, &value_ram);
+		printf("+%04X ",value_ram);
+        }
+	draw_keys();
         bc_printbigchar(bigint[0], 2, 14, white, black);
         bc_printbigchar(bigint[0], 11, 14, white, black);
         bc_printbigchar(bigint[0], 20, 14, white, black);

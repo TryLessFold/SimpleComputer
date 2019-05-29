@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "display.h"
 #include "processor.h"
-
+#include "keys.h"
 static unsigned int bigint[17][2]={
 {
         4291019715,
@@ -135,9 +135,52 @@ void display() {
 }
 int main() {
 	sc_memoryInit();
-        while (getchar() != '0') {
+	enum keys K;
+	K = NONE;
+        while (K!=QUIT) {
                 mt_clrscr();
                 display();
-        }
+                printf("\n");
+		mt_gotoXY(1, 23);
+		rk_readkey(&K);
+		printf("%d",K);
+		switch(K)
+			{
+			case SAVE: {
+		        sc_memorySave("Memory.dat");
+		        break;
+		    	}   
+		        case LOAD: {
+		        sc_memoryLoad("Memory.dat");
+		        break;
+			}		
+			case UP: {
+		        inst_counter -= 10;
+		        if(inst_counter < 0)
+		            inst_counter += 10;
+		        break;
+		    }
+		    case DOWN: {
+		        inst_counter += 10;
+		        if(inst_counter >= 100)
+		            inst_counter -= 10;
+		        break;
+		    }
+		    case LEFT: {
+		        inst_counter--;
+		        if(inst_counter < 0)
+		            inst_counter = 99;
+		        break;
+		    }
+		    case RIGHT: {
+		        inst_counter++;
+		        if(inst_counter == 100)
+		            inst_counter = 0;
+		        break;
+		    }
+		    default: bc_printbigchar(bigint[0], 2, 14, white, black);
+break;
+		}
+		}	
         return 0;
 }

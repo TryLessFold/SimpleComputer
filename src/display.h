@@ -1,6 +1,7 @@
 #ifndef BBB
  #define BBB
 	enum colors {black, red, green, yellow, blue, magenta, cyan, white, non};
+	int accumulator, inst_counter, command, operand;
 	int mt_clrscr();
 	int mt_gotoXY (int x, int y);
 	int mt_getscreensize (int *cols, int *rows);

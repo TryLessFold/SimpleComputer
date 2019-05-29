@@ -5,7 +5,7 @@
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include "myterm.h"
+#include "display.h"
 
 int curs;
 

@@ -1,6 +1,6 @@
 GCC = gcc -Wall 
-OBJ = build/processor.o build/display.o
-HEAD = src/processor.h src/display.h
+OBJ = build/processor.o build/display.o build/keys.o
+HEAD = src/processor.h src/display.h src/keys.h
 
 .PHONY: clean 
 
@@ -16,6 +16,9 @@ build/processor.o: src/processor.c src/processor.h
 
 build/display.o: src/display.c src/display.h
 	$(GCC) -std=c99 -c src/display.c -o build/display.o
+
+build/display.o: src/keys.c src/keys.h
+	$(GCC) -std=c99 -c src/keys.c -o build/keys.o
 
 build/main.o: src/main.c $(HEAD)
 	$(GCC) -c src/main.c -o build/main.o 

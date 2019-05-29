@@ -22,7 +22,7 @@ int mt_getscreensize (int *size_x, int *size_y)
 	*size_x = w.ws_col;
 	return 0;
 }
-int mt_setscreeensize (int size_x, int size_y)
+int mt_setcreeensize (int size_x, int size_y)
 {
 	return 0;
 }
@@ -39,55 +39,52 @@ int mt_setbgcolor (enum colors c)
 
 int bc_printA(char* str)
 {	
-	printf("\E(0%s\E(B",str);
+	const char k[]={92,'u'}; 
+	printf("echo -e 
+%s%s'",k,str);
 	return 0;
 }
 
 int bc_box(int x1, int y1, int x2, int y2)
 {
     mt_gotoXY(x1, y1);
-    bc_printA("l");
-    for (int i = 1; i < x2; i++) {
-        bc_printA("q");
+    for (int i = 0; i <= x2; i++) {
+        bc_printA("a");
     }
-    bc_printA("k");
     for (int i = 1; i < y2; i++) {
         mt_gotoXY(x1, y1 + i);
-        bc_printA("x");
+        bc_printA("a");
         mt_gotoXY(x1 + x2, y1 + i);
-        bc_printA("x");
+        bc_printA("a");
     }
     mt_gotoXY(x1, y1 + y2);
-    bc_printA("m");
-    for (int i = 1; i < x2; i++) {
-        bc_printA("q");
+    for (int i = 0; i <= x2; i++) {
+        bc_printA("a");
     }
-    bc_printA("j");
     return 0;
 }
 
-int bc_printbigchar(unsigned int d[2], int x, int y, enum colors f, enum colors b)
+int bc_printbigchar(int d[2], int x, int y, enum colors f, enum colors b)
 {
     mt_setfgcolor(f);
     mt_setbgcolor(b);
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            int k = (i%4)*8 + j;
-            mt_gotoXY(x+(7-j), y + (i/4*4)+3-(i%4));
-            if (d[(i / 4)] & (1 << k)){
+            int k = i * 8 + j;
+            mt_gotoXY(x + j, y + i);
+            if ((d[i / 4] & (1 << k)) >> k) {
                 bc_printA("a");
             } else {
                 printf(" ");
             }
         }
     }
-    mt_gotoXY(x+8,y+8);
-    mt_setfgcolor(non);
-    mt_setbgcolor(non);
+    mt_setfgcolor(white);
+    mt_setbgcolor(black);
     return 0;
 }
 
-int bc_setbigcharpos(unsigned int* big, int x, int y, int value)
+int bc_setbigcharpos(int* big, int x, int y, int value)
 {
     if (x < 0 || x > 7 || y < 0 || y > 7 || value > 1 || value < 0) {
         return -1;
@@ -103,7 +100,7 @@ int bc_setbigcharpos(unsigned int* big, int x, int y, int value)
     return 0;
 }
 
-int bc_getbigcharpos(unsigned int* big, int x, int y, int* value)
+int bc_getbigcharpos(int* big, int x, int y, int* value)
 {
     if (x < 0 || x > 7 || y < 0 || y > 7 || *value > 1 || *value < 0) {
         return -1;
@@ -115,7 +112,7 @@ int bc_getbigcharpos(unsigned int* big, int x, int y, int* value)
     return 0;
 }
 
-int bc_bigcharwrite(int fd, unsigned int* big, int count)
+int bc_bigcharwrite(int fd, int* big, int count)
 {
     if (!big || fd < 0) {
         return -1;
@@ -129,20 +126,15 @@ int bc_bigcharwrite(int fd, unsigned int* big, int count)
     return 0;
 }
 
-int bc_bigcharread(int fd, unsigned int** big, int need_count, int* count)
+int bc_bigcharread(int fd, int* big, int need_count, int* count)
 {
     if (fd < 0) {
         return -1;
     }
     while (need_count > 0) {
         int result;
-	char buf[40];
-        if ((result = read(fd, buf, 10*4)) == -1)
+        if ((result = read(fd, big, sizeof(int) * 2)) == -1)
             return -1;
-	else
-	{
-		
-	}
         need_count--;
         *count = *count + 1;
     }

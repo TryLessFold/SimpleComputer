@@ -1,4 +1,4 @@
-#include "myReadkey.h"
+#include "keys.h"
 
 int rk_readkey(enum keys *key) {
     struct termios def_opt;

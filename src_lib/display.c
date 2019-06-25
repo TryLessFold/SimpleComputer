@@ -1,8 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
 #include <unistd.h>
-#include "display.h"
+#include <sys/ioctl.h>
+#include <display.h>
 
 int mt_clrscr()
 {

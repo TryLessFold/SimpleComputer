@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "processor.h"
+#include <processor.h>
 
 int sc_memoryInit()
 {

@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "display.h"
-#include "processor.h"
+#include <display.h>
+#include <processor.h>
 
 static unsigned int bigint[17][2]={
 {

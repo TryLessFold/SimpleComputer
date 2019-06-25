@@ -1,30 +1,22 @@
-GCC = gcc -Wall 
-OBJ = build/processor.o build/display.o
-HEAD = src/processor.h src/display.h
 
-.PHONY: clean 
+.PHONY: clean build lib
 
-all: bin build default
+all: clean build base
 
-default: bin/SimpleComputer
+base: main.o
+	gcc build/main.o -Llib -lmy -o sim_com
 
-bin/SimpleComputer: build/main.o $(OBJ)
-	$(GCC) -std=c99 build/main.o $(OBJ) -o bin/SimpleComputer
+main.o: src/main.c
+	gcc src/main.c -I includes -Llib -lmy -c -o build/main.o
 
-build/processor.o: src/processor.c src/processor.h
-	$(GCC) -std=c99 -c src/processor.c -o build/processor.o
-
-build/display.o: src/display.c src/display.h
-	$(GCC) -std=c99 -c src/display.c -o build/display.o
-
-build/main.o: src/main.c $(HEAD)
-	$(GCC) -c src/main.c -o build/main.o 
-
-bin:
-	mkdir bin
+lib: clean build
+	gcc src_lib/*.c -c -I includes
+	ar rc lib/lib${LIB_NAME}.a *.o
 
 build:
-	mkdir build
+	mkdir build/
 
-clean: 
-	rm -rf bin build
+clean:
+	rm -rf build/
+	rm -f *.o
+

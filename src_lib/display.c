@@ -13,7 +13,7 @@ int mt_gotoXY (int x, int y)
 	printf("%c[%d;%df",0x1B,y,x);
 	return 0;
 }
-int mt_getscreensize (int *cols, int *rows)
+int mt_getscreensize (int *rows, int *cols)
 {
  	struct winsize w;
    	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -29,7 +29,7 @@ int mt_setfgcolor (enum colors c)
 }
 int mt_setbgcolor (enum colors c)
 {
-        printf("\E[4%dm", c);
+        printf("\E[10%dm", c);
 	return 0;
 }
 

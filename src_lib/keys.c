@@ -1,4 +1,8 @@
-#include "keys.h"
+#include <keys.h>
+#include <termios.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#include <stdio.h>
 
 int rk_readkey(enum keys *key) {
     struct termios def_opt;
@@ -11,7 +15,7 @@ int rk_readkey(enum keys *key) {
         return -1;
 
     read(0, buff, 15);
-    
+
     if(buff[0] == 'q')
         *key = QUIT;
 
@@ -67,12 +71,12 @@ int rk_mytermregime(int regime, int vtime, int vmin, int echo, int sigint) {
 
     if(regime == 1)
         opt.c_lflag |= ICANON;
-    
+
     else {
         opt.c_lflag &= ~ICANON;
         opt.c_cc[VTIME] = vtime;
         opt.c_cc[VMIN] = vmin;
-        
+
         if(echo)
             opt.c_lflag |= ECHO;
 

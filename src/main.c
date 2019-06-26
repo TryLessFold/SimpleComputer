@@ -1,10 +1,8 @@
 #include <stdio.h>
-<<<<<<< HEAD
-=======
 #include <display.h>
 #include <processor.h>
 #include <keys.h>
->>>>>>> a828b0cad13ac18e22657d16bc2ad6b0e6ef6e31
+
 static unsigned int bigint[17][2]={
 {
         4291019715,
@@ -76,7 +74,7 @@ static unsigned int bigint[17][2]={
 }
 };
 void draw_keys()
-{   
+{
 	mt_gotoXY(49, 14);
 	printf("l - load");
 	mt_gotoXY(49, 15);
@@ -112,14 +110,14 @@ void draw_boxes()
         mt_gotoXY(65, 10);
         printf("Flags");
         mt_gotoXY(50, 13);
-        printf("Keys");	
+        printf("Keys");
 }
 void display() {
         mt_setfgcolor(white);
         mt_setbgcolor(black);
         int x, y;
 	int value_ram;
-        mt_getscreensize( & x, & y); 
+        mt_getscreensize( & x, & y);
         for (int i = 0; i <= x; i++)           //Fill screen
                 for (int j = 0; j <= y; j++) {
                         mt_gotoXY(i, j);
@@ -152,11 +150,11 @@ int main() {
 			case SAVE: {
 		        sc_memorySave("Memory.dat");
 		        break;
-		    	}   
+		    	}
 		        case LOAD: {
 		        sc_memoryLoad("Memory.dat");
 		        break;
-			}		
+			}
 			case UP: {
 		        inst_counter -= 10;
 		        if(inst_counter < 0)
@@ -184,6 +182,6 @@ int main() {
 		    default: bc_printbigchar(bigint[0], 2, 14, white, black);
 break;
 		}
-		}	
+		}
         return 0;
 }

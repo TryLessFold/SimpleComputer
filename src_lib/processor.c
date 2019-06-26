@@ -8,7 +8,6 @@ int sc_memoryInit()
 	{
 		RAM[i] = 0;		
 	}
-	RAM[2] = 2;
 	return 0;
 }
 
@@ -77,8 +76,8 @@ int sc_regGet(int regist, int* value)
 	{
 		if ((flag&regist)==0) *value = 0;
 		else *value = 1;
-		return 0;	
-	}	
+		return 0;
+	}
 	return 1;
 }
 
@@ -92,7 +91,7 @@ int sc_commandEncode(int command, int operand, int* value)
 	    (operand >= 0b0000000 && operand <= 0b1111111)) 
 		{
 			*value = ((*value | command) << 7) | operand;
-			return 0;		
+			return 0;
 		}
 	return 1;
 }

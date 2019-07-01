@@ -32,7 +32,8 @@ void flagShow()
 {
     int fl;
     mt_gotoXY(65, 11);
-    if(sc_regGet(REG_OVERFLOW, &fl))
+	sc_regGet(REG_OVERFLOW, &fl);
+    if(fl)
     {
         printf("O ");
     }
@@ -40,7 +41,8 @@ void flagShow()
     {
         printf(" ");
     }
-    if(sc_regGet(REG_MEMORY, &fl))
+sc_regGet(REG_MEMORY, &fl);
+    if(fl)
     {
         printf("M ");
     }
@@ -48,7 +50,8 @@ void flagShow()
     {
         printf(" ");
     }
-    if(sc_regGet(REG_INFINITY, &fl))
+sc_regGet(REG_INFINITY, &fl);
+    if(fl)
     {
         printf("N ");
     }
@@ -56,7 +59,8 @@ void flagShow()
     {
         printf(" ");
     }
-    if(sc_regGet(REG_IGNORE, &fl))
+sc_regGet(REG_IGNORE, &fl);
+    if(fl)
     {
         printf("I ");
     }
@@ -64,7 +68,8 @@ void flagShow()
     {
         printf(" ");
     }
-    if(sc_regGet(REG_ERROR, &fl))
+sc_regGet(REG_ERROR, &fl);
+    if(fl)
     {
         printf("C");
     }

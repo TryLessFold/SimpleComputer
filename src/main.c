@@ -16,8 +16,11 @@ int main() {
 	enum keys K;
 	K = NONE;
 	inst_counter = 0;
+	mt_setbgcolor(BLACK);
+        mt_setfgcolor(WHITE);
         while (K!=QUIT)
 	{
+		
                 mt_clrscr();
                 window();
           //      printf("\n");
